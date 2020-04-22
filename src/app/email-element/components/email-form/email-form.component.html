@@ -1,1 +1,41 @@
-<p>email-form works!</p>
+<div [formGroup]="emailForm" class="form-container">
+    <mat-form-field appearance="fill">
+        <mat-label>From</mat-label>
+        <input matInput formControlName="from">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>To</mat-label>
+        <input matInput formControlName="to">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <mat-label>Subject</mat-label>
+        <input matInput formControlName="subject">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+        <textarea
+            cdkTextareaAutosize
+            cdkAutosizeMaxRows="maxTextareaSize"
+            matInput
+            formControlName="text">
+        </textarea>
+    </mat-form-field>
+    <div class="form-actions">
+        <button 
+            mat-fab
+            class="send-button rounded form-action" 
+            type="submit"
+            [disabled]="emailForm.invalid"
+            (click)="onSubmit()">
+            <ng-container [ngSwitch]="emailDeliveryStatus">
+                <mat-icon *ngSwitchCase="EmailDeliveryStatus.ready">send</mat-icon>
+                <mat-progress-spinner
+                    *ngSwitchCase="EmailDeliveryStatus.waiting"
+                    mode="indeterminate"
+                    diameter="24">
+                </mat-progress-spinner>
+                <mat-icon *ngSwitchCase="EmailDeliveryStatus.success">done</mat-icon>
+                <mat-icon *ngSwitchCase="EmailDeliveryStatus.fail">error</mat-icon>
+            </ng-container>
+        </button>
+    </div>
+</div>

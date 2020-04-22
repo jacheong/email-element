@@ -3,10 +3,9 @@ import { EMAIL_SERVICE_CONFIG_TOKEN, EMAIL_SERVICE_CONFIG } from './email.servic
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { Observable, throwError } from 'rxjs';
 import { retry, catchError } from 'rxjs/operators';
+import { EmailOptions } from '../interfaces/email-options.interface';
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EmailService {
 
   constructor(
@@ -14,21 +13,15 @@ export class EmailService {
     private http: HttpClient
   ) {}
 
-  contactSupport(): Observable<any> {
-    const email = {
-      from: 'test@blah.com',
-      to: 'support@me.com',
-      subject: 'This is a test to support team',
-      text: 'You should respond to this.'
-    };
-
-    return this.http.post(`${this.emailConfig.endpoint}/contact-support`, email).pipe(
+  contactSupport(email: EmailOptions): Observable<any> {
+    const endpoint = `${this.emailConfig.endpoint}/contact-support`;
+    return this.http.post(endpoint, email).pipe(
       retry(3),
       catchError(this.handleError)
     );
   }
 
-  handleError(error: HttpErrorResponse) {
+  private handleError(error: HttpErrorResponse) {
     if (error.error instanceof ErrorEvent) {
       // A client-side or network error occurred. Handle it accordingly.
       console.error('An error occurred:', error.error.message);

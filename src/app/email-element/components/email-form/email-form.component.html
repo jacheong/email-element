@@ -2,6 +2,9 @@
     <mat-form-field appearance="fill">
         <mat-label>From</mat-label>
         <input matInput formControlName="from">
+        <mat-error *ngIf="emailForm.controls['from'].hasError('required')">
+            {{messageConfig.form.error.required}}
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>To</mat-label>
@@ -10,6 +13,9 @@
     <mat-form-field appearance="fill">
         <mat-label>Subject</mat-label>
         <input matInput formControlName="subject">
+        <mat-error *ngIf="emailForm.controls['subject'].hasError('required')">
+            {{messageConfig.form.error.required}}
+        </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
         <textarea
@@ -18,6 +24,9 @@
             matInput
             formControlName="text">
         </textarea>
+        <mat-error *ngIf="emailForm.controls['text'].hasError('required')">
+            {{messageConfig.form.error.required}}
+        </mat-error>
     </mat-form-field>
     <div class="form-actions">
         <button 

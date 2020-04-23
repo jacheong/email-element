@@ -1,11 +1,12 @@
-import { Component, OnInit, NgZone, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, NgZone, ViewChild, OnDestroy, Inject } from '@angular/core';
 import { EmailService } from '../../services/email.service';
 import { FormGroup } from '@angular/forms';
 import { FormService } from '../../services/form.service';
-import { EMAIL_FORM_CONFIG, FORM_CONFIG } from '../../services/form-config';
 import { EmailOptions } from '../../interfaces/email-options.interface';
 import { Subscription } from 'rxjs';
 import { EmailDeliveryStatus } from '../../enums/email-delivery-status.enum';
+import { MESSAGE_CONFIG_TOKEN } from '../../services/message.config';
+import { SnackbarService } from '../../services/snackbar.service';
 
 @Component({
   selector: 'app-email-form',
@@ -21,7 +22,9 @@ export class EmailFormComponent implements OnInit, OnDestroy {
 
   constructor(
     private emailService: EmailService,
-    private formService: FormService
+    private formService: FormService,
+    @Inject(MESSAGE_CONFIG_TOKEN) public messageConfig,
+    private snackbarService: SnackbarService
   ) { }
 
   ngOnInit() {
@@ -66,16 +69,16 @@ export class EmailFormComponent implements OnInit, OnDestroy {
     this.subscriptions.push(
       this.emailService.contactSupport(email).subscribe({
         next: (success) => {
-          console.log(success);
           this.setEmailDeliveryStatus(EmailDeliveryStatus.success);
+          this.snackbarService.openCustomConfigSnackBar(this.messageConfig.email.success, '');
           setTimeout(() => {
             this.resetDeliveryStatus();
             this.resetEmailForm();         
           }, 2000);
         },
         error: (error) => {
-          console.log(error);
           this.setEmailDeliveryStatus(EmailDeliveryStatus.fail);
+          this.snackbarService.openCustomConfigSnackBar(this.messageConfig.email.error, '');
           setTimeout(() => {
             this.resetDeliveryStatus();
           }, 2000);

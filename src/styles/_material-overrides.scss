@@ -1,0 +1,12 @@
+.custom-snackbar {
+    &--error {
+        simple-snack-bar {
+            color: red;
+        }
+    }
+    &--success {
+        simple-snack-bar {
+            color: greenyellow;
+        }
+    }
+}

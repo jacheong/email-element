@@ -23,7 +23,7 @@ export class SnackbarService {
     if (snackBarConfig) {
       Object.assign(config, snackBarConfig);
     }
-
+    
     return this.matSnackBar.open( message, action, config );
   }
 }

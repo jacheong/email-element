@@ -1,3 +1,5 @@
+@import '../../../../styles/variables';
+
 .form-container {
     width: 75%;
     margin: 0 auto;
@@ -10,4 +12,13 @@
     display: flex;
     justify-content: flex-end;
     align-items: center;
+
+    .send-button {
+        &.success {
+            background-color: $success;
+        }
+        &.fail {
+            background-color: $fail;
+        }
+    }
 }

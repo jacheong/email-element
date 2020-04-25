@@ -7,11 +7,26 @@ import { Subscription } from 'rxjs';
 import { EmailDeliveryStatus } from '../../enums/email-delivery-status.enum';
 import { MESSAGE_CONFIG_TOKEN } from '../../services/message.config';
 import { SnackbarService } from '../../services/snackbar.service';
+import { trigger, transition, useAnimation } from '@angular/animations';
+import { generalTransform } from 'src/animations/general-transform.animation';
 
 @Component({
   selector: 'app-email-form',
   templateUrl: './email-form.component.html',
-  styleUrls: ['./email-form.component.scss']
+  styleUrls: ['./email-form.component.scss'],
+  animations: [
+    trigger('fade', [
+      transition(':enter', [
+        useAnimation(generalTransform, {
+          params: {
+            transformFrom: 'scale(0)',
+            timings: '200ms ease',
+            transformTo: 'scale(1)'
+          }
+        })
+      ])
+    ])
+  ]
 })
 export class EmailFormComponent implements OnInit, OnDestroy {
   subscriptions: Subscription[] = [];
@@ -60,6 +75,7 @@ export class EmailFormComponent implements OnInit, OnDestroy {
 
   resetEmailForm() {
     this.emailForm.reset();
+    this.emailForm.controls['to'].patchValue('jac@support.com');
     this.resetDeliveryStatus();
   }
 
@@ -70,7 +86,9 @@ export class EmailFormComponent implements OnInit, OnDestroy {
       this.emailService.contactSupport(email).subscribe({
         next: (success) => {
           this.setEmailDeliveryStatus(EmailDeliveryStatus.success);
-          this.snackbarService.openCustomConfigSnackBar(this.messageConfig.email.success, '');
+          this.snackbarService.openCustomConfigSnackBar( this.messageConfig.email.success, '', {
+            panelClass: 'custom-snackbar--success'
+          });
           setTimeout(() => {
             this.resetDeliveryStatus();
             this.resetEmailForm();         
@@ -78,7 +96,9 @@ export class EmailFormComponent implements OnInit, OnDestroy {
         },
         error: (error) => {
           this.setEmailDeliveryStatus(EmailDeliveryStatus.fail);
-          this.snackbarService.openCustomConfigSnackBar(this.messageConfig.email.error, '');
+          this.snackbarService.openCustomConfigSnackBar(this.messageConfig.email.error, '', {
+            panelClass: 'custom-snackbar--error'
+          });
           setTimeout(() => {
             this.resetDeliveryStatus();
           }, 2000);

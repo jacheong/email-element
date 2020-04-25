@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, Inject, Injector, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 
 import { AppComponent } from './app.component';
@@ -11,6 +11,7 @@ import { EMAIL_FORM_CONFIG_TOKEN, EMAIL_FORM_CONFIG } from './email-element/serv
 import { FormService } from './email-element/services/form.service';
 import { MESSAGE_CONFIG_TOKEN, MESSAGE_CONFIG } from './email-element/services/message.config';
 import { SnackbarService } from './email-element/services/snackbar.service';
+import { createCustomElement } from '@angular/elements';
 
 
 @NgModule({
@@ -31,6 +32,19 @@ import { SnackbarService } from './email-element/services/snackbar.service';
     { provide: MESSAGE_CONFIG_TOKEN, useValue: MESSAGE_CONFIG },
     SnackbarService
   ],
-  bootstrap: [AppComponent]
+  bootstrap: [],
+  schemas: [
+    CUSTOM_ELEMENTS_SCHEMA
+  ],
+  entryComponents: [
+    AppComponent
+  ]
 })
-export class AppModule { }
+export class AppModule {
+  constructor(private injector: Injector) {}
+
+  ngDoBootstrap() {
+    const elememt = createCustomElement(AppComponent, { injector: this.injector });
+    customElements.define('email-form-element', elememt);
+  }
+}

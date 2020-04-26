@@ -23,7 +23,7 @@ export const EMAIL_FORM_CONFIG: FORM_CONFIG = {
             field_name: 'from',
             field_label: 'From',
             required: true,
-            pattern: '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/'
+            pattern: "^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$"
         },
         {
             field_name: 'to',

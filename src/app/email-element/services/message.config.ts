@@ -21,7 +21,7 @@ export const MESSAGE_CONFIG: MESSAGE_CONFIG_INTERFACE = {
             required: "The following field is required",
             maxlength: "Maximum characters reached",
             minlength: "Minimum characters not met",
-            pattern: "Invalid format"
+            pattern: "Please provide a valid email address"
         }
     },
     email: {

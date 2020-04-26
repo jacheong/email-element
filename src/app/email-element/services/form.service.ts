@@ -44,12 +44,16 @@ export class FormService {
       validators.push( Validators.required );
     }
 
-    if ( field.maxLength ) {
-      validators.push( Validators.maxLength(field.maxLength) );
+    if ( field.maxlength ) {
+      validators.push( Validators.maxLength(field.maxlength) );
     }
 
-    if ( field.minLength ) {
-      validators.push( Validators.minLength(field.minLength) );
+    if ( field.minlength ) {
+      validators.push( Validators.minLength(field.minlength) );
+    }
+
+    if ( field.pattern ) {
+      validators.push( Validators.pattern(field.pattern) );
     }
 
     return validators;

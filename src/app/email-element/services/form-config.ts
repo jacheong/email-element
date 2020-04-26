@@ -11,9 +11,10 @@ export interface FIELD_CONFIG {
     field_icon?: string;
     disabled?: boolean;
     readonly?: boolean;
-    maxLength?: number;
-    minLength?: number;
+    maxlength?: number;
+    minlength?: number;
     required?: boolean;
+    pattern?: string;
 };
 
 export const EMAIL_FORM_CONFIG: FORM_CONFIG = {
@@ -21,7 +22,8 @@ export const EMAIL_FORM_CONFIG: FORM_CONFIG = {
         {
             field_name: 'from',
             field_label: 'From',
-            required: true
+            required: true,
+            pattern: '/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/'
         },
         {
             field_name: 'to',
@@ -33,12 +35,12 @@ export const EMAIL_FORM_CONFIG: FORM_CONFIG = {
             field_name: 'subject',
             field_label: 'Subejct',
             required: true,
-            maxLength: 100
+            maxlength: 100
         },
         {
             field_name: 'text',
             required: true,
-            maxLength: 500
+            maxlength: 500
         }
     ]
 };

@@ -5,9 +5,14 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
+    "build:single-bundle": "ng build --prod --single-bundle",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "postinstall:bak": "ngcc",
+    "postinstall": "ngcc",
+    "build:externals": "ng build --extra-webpack-config webpack.externals.js --prod --single-bundle",
+    "build:email-client:externals": "ng build --extra-webpack-config webpack.externals.js --prod --project email-client --single-bundle"
   },
   "private": true,
   "dependencies": {

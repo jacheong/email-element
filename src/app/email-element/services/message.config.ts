@@ -4,6 +4,9 @@ interface MESSAGE_CONFIG_INTERFACE {
     form: {
         error: {
             required: string;
+            maxlength: string;
+            minlength: string;
+            pattern: string;
         }
     },
     email: {
@@ -15,7 +18,10 @@ interface MESSAGE_CONFIG_INTERFACE {
 export const MESSAGE_CONFIG: MESSAGE_CONFIG_INTERFACE = {
     form: {
         error: {
-            required: "The following field is required"
+            required: "The following field is required",
+            maxlength: "Maximum characters reached",
+            minlength: "Minimum characters not met",
+            pattern: "Invalid format"
         }
     },
     email: {

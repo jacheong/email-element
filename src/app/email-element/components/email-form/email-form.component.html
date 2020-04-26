@@ -1,9 +1,12 @@
-<div [formGroup]="emailForm" class="form-container">
+<form [formGroup]="emailForm" class="form-container">
     <mat-form-field appearance="fill">
         <mat-label>From</mat-label>
         <input matInput formControlName="from">
-        <mat-error *ngIf="emailForm.controls['from'].hasError('required')">
+        <mat-error *ngIf="emailForm.controls['from'].errors?.required">
             {{messageConfig.form.error.required}}
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['from'].errors?.pattern">
+            {{messageConfig.form.error.pattern}}
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -13,8 +16,11 @@
     <mat-form-field appearance="fill">
         <mat-label>Subject</mat-label>
         <input matInput formControlName="subject">
-        <mat-error *ngIf="emailForm.controls['subject'].hasError('required')">
+        <mat-error *ngIf="emailForm.controls['subject'].errors?.required">
             {{messageConfig.form.error.required}}
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['subject'].errors?.maxlength">
+            {{messageConfig.form.error.maxlength}}
         </mat-error>
     </mat-form-field>
     <mat-form-field appearance="fill">
@@ -24,8 +30,11 @@
             matInput
             formControlName="text">
         </textarea>
-        <mat-error *ngIf="emailForm.controls['text'].hasError('required')">
+        <mat-error *ngIf="emailForm.controls['text'].errors?.required">
             {{messageConfig.form.error.required}}
+        </mat-error>
+        <mat-error *ngIf="emailForm.controls['text'].errors?.maxlength">
+            {{messageConfig.form.error.maxlength}}
         </mat-error>
     </mat-form-field>
     <div class="form-actions">
@@ -67,4 +76,4 @@
             </button>
         </ng-container>
     </div>
-</div>
+</form>

@@ -5,7 +5,7 @@ interface EMAIL_CONFIG {
 }
 
 export const EMAIL_SERVICE_CONFIG = {
-    endpoint: 'https://lit-wildwood-97183.herokuapp.com/',
+    endpoint: 'https://secret-forest-32963.herokuapp.com',
 };
 
 export const EMAIL_SERVICE_CONFIG_TOKEN = new InjectionToken<EMAIL_CONFIG>('email config token');
